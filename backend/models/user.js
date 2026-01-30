@@ -2,10 +2,6 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
-/**
- * Schéma utilisateur
- * Gère l'authentification et les rôles (admin, boutique, client)
- */
 const UserSchema = new Schema(
   {
     /**
@@ -14,7 +10,7 @@ const UserSchema = new Schema(
     name: {
       type: String,
       required: true,
-      trim: true,
+      trim: true, //supprime les espaces avant et après les strings.
     },
 
     /**
@@ -90,4 +86,4 @@ const UserSchema = new Schema(
   }
 );
 
-export default model("User", UserSchema);
+export default model('User', UserSchema);

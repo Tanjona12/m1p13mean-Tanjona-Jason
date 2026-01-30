@@ -1,9 +1,11 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-const router = require("./routes/auth");
+import router from "./routes/auth.js";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 8080;
 const DB_URI = process.env.MONGO_URI;
@@ -31,7 +33,7 @@ app.use(
 );
 
 // Routes
-app.use("/auth", router);
+app.use("/api/auth", router);
 
 // Database + Server
 mongoose
