@@ -1,11 +1,10 @@
+import "./env.js";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 
 import router from "./routes/auth.js";
-
-dotenv.config();
+import router1 from "./routes/admin.js";
 
 const PORT = process.env.PORT || 8080;
 const DB_URI = process.env.MONGO_URI;
@@ -34,6 +33,8 @@ app.use(
 
 // Routes
 app.use("/api/auth", router);
+app.use("/api/admin", router1);
+
 
 // Database + Server
 mongoose

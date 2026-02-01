@@ -37,6 +37,17 @@ const UserSchema = new Schema(
       select: false, // ne pas retourner le password par défaut
     },
 
+    // CIN si role = boutique 
+    cin: {
+      type: String,
+      trim: true,
+    },
+    // image de l'utilisateur
+    image: {
+        type: String, // URL ou chemin du fichier image
+        default: ''
+    },
+
     /**
      * Rôle de l'utilisateur
      * - admin    : gestion globale
@@ -64,16 +75,6 @@ const UserSchema = new Schema(
     isActive: {
       type: Boolean,
       default: true,
-    },
-
-    /**
-     * Référence de la boutique
-     * Utilisé uniquement si role === "boutique"
-     */
-    boutiqueId: {
-      type: Schema.Types.ObjectId,
-      ref: "Boutique",
-      default: null,
     },
   },
   {

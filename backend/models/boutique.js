@@ -4,24 +4,53 @@ const { Schema, model } = mongoose;
 
 const BoutiqueSchema = new Schema(
   {
-    name: {
+    name_shop: {
     type: String,
     required: true,
     trim: true
     },
-    description: {
-        type: String,
-        default: '',
-        trim: true
-    },
-    category: {
-        type: String,
-        required: true,
-        trim: true
-    },
     logo: {
         type: String, // URL ou chemin du fichier image
         default: ''
+    },
+    description: {
+        type: String,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    box: {
+      type: String, // stand / box
+      required: true,
+    },
+    // horaires
+    openingDays: {
+      type: [String], // ["Lundi","Mardi",...]
+      required: true,
+    },
+    openingHour: {
+      type: String, // "08:00"
+      required: true,
+    },
+    closingHour: {
+      type: String, // "18:00"
+      required: true,
+    },
+
+    facebook: {
+      type: String,
+      default: "",
+    },
+
+    instagram: {
+      type: String,
+      default: "",
+    },
+
+    website: {
+      type: String,
+      default: "",
     },
     owner: {
         type: Schema.Types.ObjectId,

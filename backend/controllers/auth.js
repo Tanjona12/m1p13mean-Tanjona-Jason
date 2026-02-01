@@ -1,10 +1,11 @@
+import "../env.js";
 import bcrypt from "bcryptjs";
 import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, role, phone, boutiqueId } = req.body;
+    const { name, email, password, role } = req.body;
 
     // Vérifier email existant
     const existingUser = await User.findOne({ email });
@@ -20,8 +21,6 @@ export const register = async (req, res) => {
       email,
       password: hashedPassword,
       role: role || "client",
-      phone,
-      boutiqueId: role === "boutique" ? boutiqueId : null,
     });
 
     res.status(201).json({
