@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 
 import router from "./routes/auth.js";
 import router1 from "./routes/admin.js";
+import router2 from "./routes/boutique.js";
 
 const PORT = process.env.PORT || 8080;
 const DB_URI = process.env.MONGO_URI;
@@ -34,6 +35,7 @@ app.use(
 // Routes
 app.use("/api/auth", router);
 app.use("/api/admin", router1);
+app.use("/api/boutique", router2);
 
 
 // Database + Server

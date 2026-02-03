@@ -9,9 +9,13 @@ const BoutiqueSchema = new Schema(
     required: true,
     trim: true
     },
+    // logo: {
+    //     type: String, // URL ou chemin du fichier image
+    //     default: ''
+    // },
     logo: {
-        type: String, // URL ou chemin du fichier image
-        default: ''
+      url: { type: String, default: "" },       // URL de l’image
+      public_id: { type: String, default: "" }, // public_id Cloudinary
     },
     description: {
         type: String,

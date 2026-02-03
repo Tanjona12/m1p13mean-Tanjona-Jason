@@ -157,17 +157,17 @@ export const createBoutique = async (req, res) => {
       proprietaire,
     } = req.body;
 
-    let logoUrl = "";
+    let logoData = { url: "", public_id: "" };
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path, {
         folder: "boutiques",
       });
-      logoUrl = result.secure_url;
+      logoData = { url: result.secure_url, public_id: result.public_id };
     }
 
     const boutique = await Boutique.create({
       name_shop,
-      logo: logoUrl,
+      logo: logoData,
       description,
       phone,
       box,

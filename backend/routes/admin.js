@@ -6,22 +6,22 @@ import upload from "../middlewares/upload.js";
 import { createBoutiqueUser, getBoutiqueUsers, getUsers, getUser, changeStatusUser, deleteUser,
     createBoutique, getBoutiques, getBoutique, changeStatusBoutique, deleteBoutique } from "../controllers/admin.js";
 
-const router = express.Router();
+const router1 = express.Router();
 
 // utilisateurs boutique
-router.post("/createUser", protect, authorize("admin"), upload.single("image"), createBoutiqueUser);
-router.get("/getBoutiqueUsers", getBoutiqueUsers);
-router.get("/getUsers", getUsers);
-router.get("/getUser/:id", getUser);
-router.put("/changeStatusUser/:id", protect, authorize("admin"), changeStatusUser);
-router.delete("/deleteUser/:id", protect, authorize("admin"), deleteUser);
+router1.post("/createUser", protect, authorize("admin"), upload.single("image"), createBoutiqueUser);
+router1.get("/getBoutiqueUsers", getBoutiqueUsers);
+router1.get("/getUsers", getUsers);
+router1.get("/getUser/:id", getUser);
+router1.put("/changeStatusUser/:id", protect, authorize("admin"), changeStatusUser);
+router1.delete("/deleteUser/:id", protect, authorize("admin"), deleteUser);
 
 
 // boutiques
-router.post("/createBoutique", protect, authorize("admin"), upload.single("logo"), createBoutique);
-router.get("/getBoutiques", getBoutiques);
-router.get("/getBoutique/:id", getBoutique);
-router.put("/changeStatusBoutique/:id", protect, authorize("admin"), changeStatusBoutique);
-router.delete("/deleteBoutique/:id", protect, authorize("admin"), deleteBoutique);
+router1.post("/createBoutique", protect, authorize("admin"), upload.single("logo"), createBoutique);
+router1.get("/getBoutiques", getBoutiques);
+router1.get("/getBoutique/:id", getBoutique);
+router1.put("/changeStatusBoutique/:id", protect, authorize("admin"), changeStatusBoutique);
+router1.delete("/deleteBoutique/:id", protect, authorize("admin"), deleteBoutique);
 
-export default router;
+export default router1;
