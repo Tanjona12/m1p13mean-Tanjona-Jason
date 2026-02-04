@@ -3,11 +3,15 @@ import { protect } from "../middlewares/auth.js";
 import { authorize } from "../middlewares/role.js";
 import upload from "../middlewares/upload.js";
 
-import { updateBoutique } from "../controllers/boutique.js";
+import { updateBoutique, createProduit, updateProduit, deleteProduit } from "../controllers/boutique.js";
 
 const router2 = express.Router();
 
 router2.put("/updateBoutique/:id", protect, authorize("boutique"), upload.single("logo"), updateBoutique);
+
+router2.post("/createProduit", protect, authorize("boutique"), upload.single("imageProduit"), createProduit);
+router2.post("/updateProduit/:id", protect, authorize("boutique"), upload.single("imageProduit"), updateProduit);
+router2.delete("/deleteProduit/:id", protect, authorize("boutique"), deleteProduit);
 
 
 

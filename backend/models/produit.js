@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 
 const ProduitSchema = new Schema(
   {
-        name: {
+       name: {
             type: String,
             required: true,
             trim: true
@@ -24,9 +24,9 @@ const ProduitSchema = new Schema(
             required: true,
             min: 0
        },
-       image: {
-           type: String, // URL ou chemin du fichier image
-           default: ''
+       imageProduit: {
+            url: { type: String, default: "" },       // URL de l’image
+            public_id: { type: String, default: "" },
        },
        boutiqueId: {
            type: Schema.Types.ObjectId,
