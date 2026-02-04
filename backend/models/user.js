@@ -26,10 +26,6 @@ const UserSchema = new Schema(
       trim: true,
     },
 
-    /**
-     * Mot de passe hashé (bcrypt)
-     * ⚠️ Ne jamais stocker le mot de passe en clair
-     */
     password: {
       type: String,
       required: true,
@@ -43,11 +39,14 @@ const UserSchema = new Schema(
       trim: true,
     },
     // image de l'utilisateur
+    // image: {
+    //     type: String, // URL ou chemin du fichier image
+    //     default: ''
+    // },
     image: {
-        type: String, // URL ou chemin du fichier image
-        default: ''
+      url: { type: String, default: "" },       // URL de l’image
+      public_id: { type: String, default: "" }, // public_id Cloudinary
     },
-
     /**
      * Rôle de l'utilisateur
      * - admin    : gestion globale

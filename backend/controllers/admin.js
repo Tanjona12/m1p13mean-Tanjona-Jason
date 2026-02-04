@@ -12,7 +12,7 @@ import multer from "multer";
 export const createBoutiqueUser = async (req, res) => {
   try {
 
-    const { name, email, password, cin } = req.body;
+    const { name, phone, email, password, cin } = req.body;
 
     const existingUser = await User.findOne({
       $or: [
@@ -26,22 +26,23 @@ export const createBoutiqueUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    let imageUrl = "";
+    let imageData = { url: "", public_id: "" };
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path, {
         folder: "users",
       });
-      imageUrl = result.secure_url;
+      imageData = { url: result.secure_url, public_id: result.public_id };
     }
 
     
 
     const user = await User.create({
       name,
+      phone,
       email,
       password: hashedPassword,
       cin,
-      image: imageUrl, //image cloudinary
+      image: imageData, //image cloudinary
       role: "boutique",
       forcePasswordChange: true,
     });
@@ -51,6 +52,7 @@ export const createBoutiqueUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
+        phone: user.phone,
         email: user.email,
       },
     });
