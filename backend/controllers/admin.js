@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import Boutique from "../models/boutique.js";
+import Produit from "../models/produit.js";
 import bcrypt from "bcryptjs";
 import cloudinary from "../config/cloudinary.js";
 import multer from "multer";
@@ -24,6 +25,14 @@ export const createBoutiqueUser = async (req, res) => {
       return res.status(400).json({ message: "Utilisateur déjà existant" });
     }
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        message:
+          "Le mot de passe doit contenir au moins 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial",
+      });
+    }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
     let imageData = { url: "", public_id: "" };
@@ -124,20 +133,92 @@ export const changeStatusUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, res, next) => {
-  const id = req.params.id;
+export const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-  let users;
-  try{
-    users = await User.findByIdAndDelete(id)
-  } catch (err) {
-    console.log(err);
+    // Vérifier ADMIN
+    if (req.user.role !== "admin") {
+      return res.status(403).json({
+        message: "Accès refusé. Admin uniquement.",
+      });
+    }
+
+    // Trouver user
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "Utilisateur introuvable",
+      });
+    }
+
+    // sécurité extrême
+    if (user.role === "admin") {
+      return res.status(400).json({
+        message: "Impossible de supprimer un admin",
+      });
+    }
+
+    // Trouver boutiques du user
+    const boutiques = await Boutique.find({ owner: user._id });
+
+    for (const boutique of boutiques) {
+
+      // supprimer logo boutique
+      if (boutique.logo?.public_id) {
+        await cloudinary.uploader.destroy(boutique.logo.public_id);
+      }
+
+      // récupérer produits
+      const produits = await Produit.find({
+        boutiqueId: boutique._id,
+      });
+
+      // for (const produit of produits) {
+      //   if (produit.imageProduit?.public_id) {
+      //     await cloudinary.uploader.destroy(
+      //       produit.imageProduit.public_id
+      //     );
+      //   }
+      // }
+      await Promise.all(
+        produits.map((p) =>
+          p.imageProduit?.public_id
+            ? cloudinary.uploader.destroy(p.imageProduit.public_id)
+            : null
+        )
+      );
+
+      // supprimer produits
+      await Produit.deleteMany({
+        boutiqueId: boutique._id,
+      });
+
+      // supprimer boutique
+      await boutique.deleteOne();
+    }
+
+    // supprimer user
+    await User.findByIdAndDelete(user._id);
+
+    // supprimer image USER
+    if (user.image?.public_id) {
+      await cloudinary.uploader.destroy(user.image.public_id);
+    }
+
+    res.status(200).json({
+      message: "Utilisateur et ses dépendances supprimés avec succès",
+    });
+
+  } catch (error) {
+    console.error("deleteUser error:", error);
+
+    res.status(500).json({
+      message: "Erreur serveur",
+    });
   }
-  if (!users) {
-    return res.status(500).json({message: "Utilisateur non trouvé"});
-  }
-  return res.status(200).json({message:"Suppréssion succées"});
-};
+}
 
 
 /**
@@ -244,17 +325,58 @@ export const changeStatusBoutique = async (req, res) => {
   }
 };
 
-export const deleteBoutique = async (req, res, next) => {
-  const id = req.params.id;
+export const deleteBoutique = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-  let boutiques;
-  try{
-    boutiques = await Boutique.findByIdAndDelete(id)
-  } catch (err) {
-    console.log(err);
+    // Trouver la boutique
+    const boutique = await Boutique.findById(id);
+
+    if (!boutique) {
+      return res.status(404).json({
+        message: "Boutique introuvable",
+      });
+    }
+
+    // Sécurité (OPTION mais recommandé)
+    // Autoriser seulement admin ou owner
+    if (
+      req.user.role !== "admin" &&
+      boutique.owner.toString() !== req.user.userId
+    ) {
+      return res.status(403).json({
+        message: "Non autorisé à supprimer cette boutique",
+      });
+    }
+
+    // Supprimer le logo sur Cloudinary
+    if (boutique.logo?.public_id) {
+      await cloudinary.uploader.destroy(boutique.logo.public_id);
+    }
+
+    // supprimer les images produits + produits
+    const produits = await Produit.find({ boutiqueId: boutique._id });
+
+    for (const produit of produits) {
+      if (produit.imageProduit?.public_id) {
+        await cloudinary.uploader.destroy(produit.imageProduit.public_id);
+      }
+    }
+
+    await Produit.deleteMany({ boutiqueId: boutique._id });
+
+    // Supprimer la boutique
+    await boutique.deleteOne();
+
+    res.status(200).json({
+      message: "Boutique supprimée avec succès",
+    });
+
+  } catch (error) {
+    console.error("Erreur deleteBoutique:", error);
+
+    res.status(500).json({
+      message: "Erreur serveur",
+    });
   }
-  if (!boutiques) {
-    return res.status(500).json({message: "Impossible de supprimé, boutique non trouvé"});
-  }
-  return res.status(200).json({message:"Suppréssion succées"});
 };

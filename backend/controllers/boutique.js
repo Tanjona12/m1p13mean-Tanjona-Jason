@@ -138,6 +138,67 @@ export const createProduit = async (req, res) => {
   }
 }
 
+export const getProduits = async (req, res) => {
+  try {
+    const produits = await Produit.find();
+    res.status(200).json(produits);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getProduit = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const produit = await Produit.findById(id)
+    res.status(200).json(produit);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getProduitBoutique = async (req, res) => {
+    try {
+    const { id } = req.params;
+
+    // Vérifier boutique
+    const boutique = await Boutique.findById(id);
+
+    if (!boutique) {
+      return res.status(404).json({
+        message: "Boutique introuvable",
+      });
+    }
+
+    // récupérer produits
+    const produits = await Produit.find({
+      boutiqueId: id,
+      isActive: true,
+    }).sort({ createdAt: -1 });
+
+    // aucun produit
+    if (produits.length === 0) {
+      return res.status(200).json({
+        message: "Cette boutique n'a aucun produit pour le moment",
+        produits: [],
+      });
+    }
+
+    res.status(200).json({
+      total: produits.length,
+      produits,
+    });
+
+  } catch (error) {
+    console.error("getProduitsBoutique:", error);
+
+    res.status(500).json({
+      message: "Erreur serveur",
+    });
+  }
+};
+
 export const updateProduit = async (req, res) => {
   try {
 
