@@ -1,0 +1,57 @@
+<div class="container py-5">
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <div class="input-group shadow-sm">
+                <span class="input-group-text bg-white border-end-0">
+                    <fa-icon [icon]="faSearch"></fa-icon>
+                </span>
+                <input type="text"
+                       class="form-control border-start-0"
+                       placeholder="Rechercher une boutique...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cartes boutiques -->
+    <div class="row g-4">
+
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <a href="/admin/shop/1" class="text-decoration-none text-dark">
+                <div class="card boutique-card h-100">
+                    <div class="image-container">
+                        <img src="https://img.freepik.com/vecteurs-libre/logo-elegant-pour-salon-coiffure-beaute_1048-17696.jpg?semt=ais_hybrid&w=740&q=80"
+                            alt="Logo boutique">
+                    </div>
+                    <div class="card-body d-flex flex-column  text-center">
+                            <h5 class="card-title">Nom boutique</h5>
+                            <p class="card-text">
+                                - BOX 201 -
+                            </p>
+                            <p class="card-text text-muted">
+                                Description de la boutique.
+                            </p>
+                            <div class="d-flex justify-content-around">
+                                <button type="button" class="btn btn-outline-light text-success text-decoration-none" title="Désactiver cette boutique">
+                                     <fa-icon [icon]="faOn"></fa-icon> Activer
+                                     <!-- <fa-icon [icon]="faOff"></fa-icon> Désactiver -->
+                                </button>
+                                <!-- <button type="button" class="btn btn-outline-danger text-decoration-none" title="Supprimer cette boutique">
+                                      Supprimer
+                                </button> -->
+                            </div>
+                    </div>
+                </div>
+            </a>  
+        </div>
+        
+
+        <!-- Duplique les col ici -->
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>

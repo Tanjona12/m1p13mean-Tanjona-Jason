@@ -1,0 +1,102 @@
+<div>
+
+        <!-- Carousel -->
+        <div id="mainCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f" 
+                        class="d-block w-100 hero-img" alt="">
+                    <div class="carousel-caption">
+                        <h2 class="fw-bold">Bienvenue dans notre Super Marché</h2>
+                        <p>Découvrez toutes les boutiques et leurs produits</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://client-companyshopgroup.s3-eu-west-1.amazonaws.com/resized-images/communityshop_675x400_27.jpg"
+                        class="d-block w-100 hero-img" alt="">
+                </div>
+
+                <div class="carousel-item">
+                    <img src="https://novisad.travel/wp-content/uploads/2022/09/20220726_113540_the-box-shop_compressed-scaled.jpg"
+                        class="d-block w-100 hero-img" alt="">
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Liste boutiques -->
+        <div class="container mb-5">
+            <h4 class="fw-bold mb-3">Nos Boutiques</h4>
+            <div class="shop-scroll-wrapper">
+                <div class="shop-scroll">
+
+                    <div class="shop-card">
+                        <a href="/shop/1" class="text-dark text-decoration-none">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+                            <p>Boutique Sport</p>
+                        </a>
+                    </div>
+
+                    <!-- DUPLIQUE ICI -->
+                    
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Catégorie -->
+        <div class="container mb-5">
+            <h4 class="fw-bold mb-3">Catégories</h4>
+            <div class="d-flex gap-3 overflow-auto category-scroll">
+                <button class="btn btn-outline-success">Tous</button>
+                <button class="btn btn-outline-secondary">Alimentaire</button>
+                <button class="btn btn-outline-secondary">Électronique</button>
+                <button class="btn btn-outline-secondary">Mode</button>
+                <button class="btn btn-outline-secondary">Sport</button>
+                <button class="btn btn-outline-secondary">Maison</button>
+            </div>
+        </div>
+
+
+        <!-- Liste des produits -->
+        <div class="container mb-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold">Produits populaires</h4>
+                <a href="#" class="text-success">Voir plus</a>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <a href="/product/1" class="text-decoration-none">
+                        <div class="card product-card h-100">
+                            <div class="product-image-container">
+                                <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505"
+                                    alt="">
+                            </div>
+
+                            <div class="card-body">
+                                <h6 class="fw-bold">Produit exemple</h6>
+                                <p class="text-success fw-semibold">25 000 Ar</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+               
+                <!-- répéter -->
+            </div>
+
+        </div>
+
+
+</div>
+
+
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>

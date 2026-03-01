@@ -58,7 +58,7 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
-    console.log("JWT_SECRET =", process.env.JWT_SECRET);
+    // console.log("JWT_SECRET =", process.env.JWT_SECRET);
     const { email, password } = req.body;
 
     // Vérifier email

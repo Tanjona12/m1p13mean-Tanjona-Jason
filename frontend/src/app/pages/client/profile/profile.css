@@ -1,0 +1,34 @@
+.profile-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.profile-card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+.profile-image-container {
+    width: 160px;
+    height: 160px;
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #f1f1f1;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.profile-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info strong {
+    font-size: 0.9rem;
+}
+
+.profile-info p {
+    font-size: 0.95rem;
+}

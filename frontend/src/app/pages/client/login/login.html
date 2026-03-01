@@ -1,0 +1,69 @@
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+
+    <div class="card shadow p-4 login-card">
+
+        <h3 class="text-center mb-4 fw-bold">Connexion</h3>
+
+        <!-- Message erreur -->
+        <div class="alert alert-danger py-2">
+            error message
+        </div>
+
+        <form>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Adresse email</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    required
+                    email
+                >
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="mb-3">
+                <label class="form-label">Mot de passe</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    required
+                >
+            </div>
+
+            <!-- Bouton -->
+            <button
+                type="submit"
+                class="btn btn-primary w-100 mt-2"
+            >
+                Se connecter
+            </button>
+
+        </form>
+
+        <!-- Liens -->
+        <div class="text-center mt-3">
+
+            <a href="/forgot-password" class="small text-danger d-block mb-2 text-decoration-none">
+                Mot de passe oublié ?
+            </a>
+
+            <span class="small">
+                Je n'ai pas de compte ?
+                <a href="/register" class=" fw-semibold text-decoration-none">
+                    Inscription
+                </a>
+            </span>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>

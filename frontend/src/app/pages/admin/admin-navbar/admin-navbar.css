@@ -1,0 +1,85 @@
+/* Navbar style */
+.navbar-custom {
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Logo */
+.brand-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.brand-logo span {
+    color: #dc3545;
+}
+
+/* Nav links */
+.nav-custom {
+    font-weight: 500;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Hover effect underline animation */
+.nav-custom::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #dc3545;
+    left: 0;
+    bottom: 0;
+    transition: 0.3s;
+}
+
+.nav-custom:hover::after {
+    width: 100%;
+}
+
+/* Dropdown modern */
+.dropdown-modern {
+    border-radius: 12px;
+    padding: 10px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: none;
+
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+/* Dropdown item */
+.dropdown-modern .dropdown-item {
+    padding: 8px 20px;
+    transition: 0.3s;
+}
+
+.dropdown-modern .dropdown-item:hover {
+    background-color: #f8f9fa;
+    padding-left: 25px;
+}
+
+/* Scrollbar */
+.dropdown-modern::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-modern::-webkit-scrollbar-thumb {
+    background-color: #dc3545;
+    border-radius: 10px;
+}
+
+/* Dropdown au hover */
+.dropdown-hover:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+/* Animation douce */
+.dropdown-menu {
+    transition: all 0.3s ease;
+}
+
+

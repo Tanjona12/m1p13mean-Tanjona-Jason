@@ -1,0 +1,69 @@
+/* ================= HEADER ================= */
+.boutique-header {
+    border-radius: 15px;
+}
+
+.boutique-logo-container {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin: auto;
+}
+
+.boutique-logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.boutique-info p {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.social-icons i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.social-icons i:hover {
+    color: #dc3545;
+}
+
+/* ================= PRODUITS ================= */
+
+.product-link {
+    display: block;
+}
+
+.product-link:hover .product-card {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.product-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.product-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

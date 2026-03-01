@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-custom px-4 sticky-top">
+
+    <!-- LOGO -->
+    <a class="navbar-brand brand-logo" href="/admin">
+        ADMIN BAOBAB <span>CENTER</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+        <ul class="navbar-nav ms-auto align-items-center">
+
+            <li class="nav-item">
+                <a class="nav-link nav-custom" href="/admin">
+                    <fa-icon [icon]="faHouse"></fa-icon> Accueil
+                </a>
+            </li>
+
+            <li class="nav-item dropdown dropdown-hover">
+                <a class="nav-link nav-custom" href="/admin/shop">
+                    <fa-icon [icon]="faShop"></fa-icon> Boutiques
+                </a>
+
+                <ul class="dropdown-menu dropdown-modern">
+                    <li><a class="dropdown-item" href="#">Boutique 1</a></li>
+                    <li><a class="dropdown-item" href="#">Boutique 2</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link nav-custom" href="/admin/users">
+                     <fa-icon [icon]="faUser"></fa-icon> Utilisateur
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="btn btn-danger ms-3 px-4" href="/login">
+                      Déconnecter <fa-icon [icon]="faLogout"></fa-icon>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>
