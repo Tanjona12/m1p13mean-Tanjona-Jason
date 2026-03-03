@@ -30,6 +30,9 @@ import { BoutiqueUpdateBoutique } from './pages/boutique/boutique-update-boutiqu
 import { BoutiqueUpdateProduit } from './pages/boutique/boutique-update-produit/boutique-update-produit';
 import { BoutiqueUpdateProfile } from './pages/boutique/boutique-update-profile/boutique-update-profile';
 
+import { authGuard } from "./guards/auth.guard";
+import { roleGuard } from './guards/role.guard';
+
 export const routes: Routes = [
     {
         path:'',
@@ -70,17 +73,21 @@ export const routes: Routes = [
             },
             {
                 path:'profile',
-                component:Profile
+                component:Profile,
+                canActivate: [authGuard]
             },
             {
                 path:'update_profile',
-                component:ModifUtilisateur
+                component:ModifUtilisateur,
+                canActivate: [authGuard]
             }
         ]
     },
     {
         path:'admin',
         component:AdminNavbar,
+        canActivate: [authGuard, roleGuard],
+        data: { role: 'admin' },
         children: [
             {
                 path:'',
@@ -123,6 +130,8 @@ export const routes: Routes = [
     {
         path:'owner',
         component:BoutiqueNavbar,
+        canActivate: [authGuard, roleGuard],
+        data: { role: 'boutique' },
         children: [
             {
                 path:'',

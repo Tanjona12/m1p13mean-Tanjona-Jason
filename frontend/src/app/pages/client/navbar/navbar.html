@@ -26,13 +26,30 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link nav-custom" href="/panier">
-                     <fa-icon [icon]="faCart"></fa-icon> Panier
+                <a class="nav-link nav-custom position-relative" routerLink="/panier">
+                    <fa-icon [icon]="faCart"></fa-icon> Panier
+
+                    <span
+                    *ngIf="cartCount$ | async as count"
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                    [class.d-none]="count === 0">
+                    {{ count }}
+                    </span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="btn btn-danger ms-3 px-4" href="/login">Se connecter</a>
+            <li class="nav-item ms-3">
+                <ng-container *ngIf="loggedIn$ | async as loggedIn; else showLogin">
+                    <button class="btn btn-outline-danger px-4" (click)="logout()">
+                    Déconnexion
+                    </button>
+                </ng-container>
+
+                <ng-template #showLogin>
+                    <a class="btn btn-danger px-4" routerLink="/login">
+                    Se connecter
+                    </a>
+                </ng-template>
             </li>
 
         </ul>

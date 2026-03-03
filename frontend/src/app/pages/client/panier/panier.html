@@ -1,103 +1,123 @@
 <div class="container my-5">
 
-    <h2 class="fw-bold mb-4">🛒 Mon Panier</h2>
+  <h2 class="fw-bold mb-4">🛒 Mon Panier</h2>
 
-    <!-- ===== SI PANIER VIDE ===== -->
-    <!-- Supprime cette section si panier contient des produits -->
-    <div class="cart-empty text-center py-5 d-none">
-        <h4 class="fw-bold">Votre panier est vide</h4>
-        <p class="text-muted">Ajoutez des produits pour commencer vos achats.</p>
-        <a href="/boutique" class="btn btn-success mt-3">
-            Continuer mes achats
-        </a>
+  <!-- On récupère les items -->
+  <ng-container *ngIf="cartItems$ | async as items">
+
+    <!-- ===== PANIER VIDE ===== -->
+    <div *ngIf="items.length === 0" class="cart-empty text-center py-5">
+      <h4 class="fw-bold">Votre panier est vide</h4>
+      <p class="text-muted">Ajoutez des produits pour commencer vos achats.</p>
+      <a routerLink="/boutique" class="btn btn-success mt-3">
+        Continuer mes achats
+      </a>
     </div>
 
-    <div class="row">
+    <!-- ===== PANIER NON VIDE ===== -->
+    <div *ngIf="items.length > 0" class="row">
 
-        <!-- ===== LISTE PRODUITS ===== -->
-        <div class="col-lg-8">
+      <!-- ===== LISTE PRODUITS ===== -->
+      <div class="col-lg-8">
 
-            <!-- Produit -->
-            <div class="card cart-item mb-4 p-3">
-                <div class="row align-items-center">
+        <div class="card cart-item mb-4 p-3"
+             *ngFor="let item of items; trackBy: trackById">
 
-                    <!-- Image -->
-                    <div class="col-md-3">
-                        <div class="cart-image-container">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjdKMXL8cLoEbFfj2nXM0x__xbwniTqJCN5Q&s"
-                                alt="Produit">
-                        </div>
-                    </div>
+          <div class="row align-items-center">
 
-                    <!-- Info -->
-                    <div class="col-md-4">
-                        <h6 class="fw-bold">Ballon de foot</h6>
-                        <p class="text-muted mb-1">Catégorie : Sport</p>
-                        <p class="text-success fw-semibold">25 000 Ar</p>
-                    </div>
-
-                    <!-- Quantité -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Quantité</label>
-
-                        <div class="quantity-box d-flex align-items-center">
-                            <button class="btn btn-outline-secondary btn-sm">-</button>
-                            <input type="text" class="form-control text-center mx-2" value="1">
-                            <button class="btn btn-outline-secondary btn-sm">+</button>
-                        </div>
-                    </div>
-
-                    <!-- Total -->
-                    <div class="col-md-2 text-end">
-                        <p class="fw-bold text-success">25 000 Ar</p>
-                        <button class="btn btn-sm btn-outline-danger mt-2">
-                            Supprimer
-                        </button>
-                    </div>
-
-                </div>
+            <!-- Image -->
+            <div class="col-md-3">
+              <div class="cart-image-container">
+                <img [src]="item.imageUrl || 'https://via.placeholder.com/300'"
+                     alt="Produit">
+              </div>
             </div>
 
-        </div>
+            <!-- Info -->
+            <div class="col-md-4">
+              <h6 class="fw-bold">{{ item.name }}</h6>
+              <p class="text-muted mb-1">
+                Catégorie : {{ item.category || '-' }}
+              </p>
+              <p class="text-success fw-semibold">
+                {{ formatPrice(item.price) }}
+              </p>
+            </div>
 
+            <!-- Quantité -->
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Quantité</label>
 
-        <!-- ===== RÉSUMÉ ===== -->
-        <div class="col-lg-4">
-
-            <div class="card p-4 cart-summary">
-
-                <h5 class="fw-bold mb-3">Résumé</h5>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Sous-total</span>
-                    <span>25 000 Ar</span>
-                </div>
-
-                <div class="d-flex justify-content-between mb-2">
-                    <span>Livraison</span>
-                    <span>5 000 Ar</span>
-                </div>
-
-                <hr>
-
-                <div class="d-flex justify-content-between fw-bold mb-4">
-                    <span>Total</span>
-                    <span class="text-success">30 000 Ar</span>
-                </div>
-
-                <button class="btn btn-success w-100 btn-lg">
-                    ✔ Passer la commande
+              <div class="quantity-box d-flex align-items-center">
+                <button class="btn btn-outline-secondary btn-sm"
+                        (click)="decrement(item.id)">
+                  -
                 </button>
 
+                <input type="number"
+                       class="form-control text-center mx-2"
+                       [value]="item.quantity"
+                       min="1"
+                       (input)="setQuantity(item.id, $event)">
+
+                <button class="btn btn-outline-secondary btn-sm"
+                        (click)="increment(item.id)">
+                  +
+                </button>
+              </div>
             </div>
 
+            <!-- Total item -->
+            <div class="col-md-2 text-end">
+              <p class="fw-bold text-success">
+                {{ formatPrice(item.price * item.quantity) }}
+              </p>
+
+              <button class="btn btn-sm btn-outline-danger mt-2"
+                      (click)="remove(item.id)">
+                Supprimer
+              </button>
+            </div>
+
+          </div>
         </div>
+
+      </div>
+
+      <!-- ===== RÉSUMÉ ===== -->
+      <div class="col-lg-4">
+        <div class="card p-4 cart-summary">
+
+          <h5 class="fw-bold mb-3">Résumé</h5>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Sous-total</span>
+            <span>{{ formatPrice(subtotal()) }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Livraison</span>
+            <span>{{ formatPrice(livraison) }}</span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between fw-bold mb-4">
+            <span>Total</span>
+            <span class="text-success">
+              {{ formatPrice(total()) }}
+            </span>
+          </div>
+
+          <button class="btn btn-success w-100 btn-lg">
+            ✔ Passer la commande
+          </button>
+
+        </div>
+      </div>
 
     </div>
 
-</div>
+  </ng-container>
 
-
-<div class="container-fluid">
-    <router-outlet></router-outlet>
 </div>
