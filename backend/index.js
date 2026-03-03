@@ -22,22 +22,29 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const allowedDomains = ["http://localhost:4200"];
+const allowedDomains = [
+  "http://localhost:4200",
+  "https://baobabcenter.netlify.app",
+];
 
-app.use(
-  cors({
-    origin: allowedDomains,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    optionsSuccessStatus: 200,
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // Postman/curl
+    if (allowedDomains.includes(origin)) return callback(null, true);
+    return callback(new Error("Not allowed by CORS: " + origin));
+  },
+  credentials: true,
+}));
+
+
+app.get("/health", (req, res) => res.json({ ok: true }));
 
 // Routes
 app.use("/api/auth", router);
 app.use("/api/admin", router1);
 app.use("/api/boutique", router2);
 app.use("/api/client", router3);
+
 
 
 // Database + Server
