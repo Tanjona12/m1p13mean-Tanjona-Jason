@@ -1,1 +1,145 @@
-<p>boutique-boutique works!</p>
+
+<div class="container py-5">
+
+    <!-- ================= BOUTIQUE HEADER ================= -->
+     @if (boutique) {
+    <div class="card shadow-sm p-4 mb-5 boutique-header">
+
+        <div class="row align-items-center">
+
+            <!-- Logo -->
+            <div class="col-md-3 text-center">
+                <div class="boutique-logo-container">
+                    <img [src]="boutique.logo?.url"
+                         alt="Logo boutique">
+                </div>
+            </div>
+
+            <!-- Nom + Description -->
+            <div class="col-md-5">
+                <h2 class="fw-bold">{{ boutique.name_shop ? boutique.name_shop : 'vide' }}</h2>
+                <p class="text-muted">
+                    {{ boutique.description ? boutique.description : 'vide' }}
+                </p>
+                <a [routerLink]="['/owner/update_shop', boutique._id]" class="btn btn-outline-warning text-decoration-none mx-2">
+                      Modifier ma boutique
+                </a>
+            </div>
+
+            <!-- Informations -->
+            <div class="col-md-4 boutique-info">
+                <h6 class="fw-bold mb-3">
+                    INFORMATIONS
+                </h6>
+
+                <p><strong class="text-danger"><fa-icon [icon]="faMapPin"></fa-icon></strong> Boxe {{ boutique.box ? boutique.box : 'vide' }}</p>
+                <p><strong class="text-secondary"><fa-icon [icon]="faClock"></fa-icon></strong> {{ boutique.openingHour ? boutique.openingHour : 'vide' }} - {{ boutique.closingHour ? boutique.closingHour : 'vide' }}</p>
+                <p><strong class="text-success"><fa-icon [icon]="faPhone"></fa-icon></strong> {{ boutique.phone ? boutique.phone : 'vide' }}</p>
+                <p><strong class="text-info"><fa-icon [icon]="faGlobe"></fa-icon></strong> {{ boutique.website ? boutique.website : 'vide' }}</p>
+
+                <div class="social-icons mt-2">
+                    <i class="fa-brands fa-facebook me-2"></i>
+                    <i class="fa-brands fa-instagram me-2"></i>
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+     }
+    <!-- ================= PRODUITS ================= -->
+    <div>
+
+        <h2 class="fw-bold mb-4 text-center">PRODUITS</h2>
+
+        <!-- Recherche produit -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <div class="input-group shadow-sm">
+                    <span class="input-group-text bg-white border-end-0">
+                        <fa-icon [icon]="faSearch"></fa-icon>
+                    </span>
+                    <input type="text"
+                           class="form-control border-start-0"
+                           placeholder="Rechercher un produit..."
+                           (input)="onSearch($event)"
+                    >
+                </div>
+            </div>
+            <div class="col-md-3 text-end">
+                <a [routerLink]="['/owner/add_product']" class="btn btn-success">
+                    Ajouter un produit +
+                </a>
+            </div>
+        </div>
+     @if (produits) {
+        <!-- Cartes produits -->
+        <div class="row g-4">
+
+            <div class="col-sm-6 col-md-4 col-lg-3"  *ngFor="let produit of paginatedProduits">
+                <a [routerLink]="['/owner/product', produit._id]" class="text-decoration-none text-dark">
+                    <div class="card product-card h-100">
+
+                        <div class="product-image-container">
+                            <img    [src]="produit.imageProduit?.url"
+                                    alt="Produit">
+                        </div>
+
+                        <div class="card-body d-flex flex-column">
+                            <h6 class="fw-bold text-dark">{{ produit.name }}</h6>
+                            <p class="text-success fw-semibold">{{ formatPrice(produit.price) }}</p>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    }
+
+
+        @if (filteredProduits.length === 0){
+            <div class="text-center mt-5">
+            <p class="text-muted">
+                Aucun produit trouvé.
+            </p>
+        </div>
+        }
+        
+
+
+        <!-- Pagination -->
+        <nav class="mt-5" *ngIf="totalPages > 1">
+            <ul class="pagination justify-content-center">
+
+                <li class="page-item"
+                    [class.disabled]="currentPage === 1">
+                <a class="page-link"
+                    (click)="changePage(currentPage - 1)">
+                    Précédent
+                </a>
+                </li>
+
+                <li class="page-item"
+                    *ngFor="let page of [].constructor(totalPages); let i = index"
+                    [class.active]="currentPage === i + 1">
+                <a class="page-link"
+                    (click)="changePage(i + 1)">
+                    {{ i + 1 }}
+                </a>
+                </li>
+
+                <li class="page-item"
+                    [class.disabled]="currentPage === totalPages">
+                <a class="page-link"
+                    (click)="changePage(currentPage + 1)">
+                    Suivant
+                </a>
+                </li>
+
+            </ul>
+        </nav>
+
+    </div>
+</div>
+

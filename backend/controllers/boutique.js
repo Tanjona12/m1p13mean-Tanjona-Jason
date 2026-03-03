@@ -71,6 +71,24 @@ export const updateBoutique = async (req, res) => {
   }
 };
 
+export const getBoutiqueOwner = async (req, res) => {
+  try {
+    
+    const userId = req.user.userId;
+
+    const boutique = await Boutique.findOne({ owner: userId });
+
+    if (!boutique) {
+      return res.status(404).json({ message: "Aucune boutique trouvée pour cet utilisateur" });
+    }
+
+    res.status(200).json(boutique);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
 export const createProduit = async (req, res) => {
   try {
 
@@ -151,7 +169,13 @@ export const getProduits = async (req, res) => {
 export const getProduit = async (req, res) => {
   const id = req.params.id;
   try {
-    const produit = await Produit.findById(id)
+    // On récupère le produit et on "popule" le champ boutiqueId avec le nom de la boutique
+    const produit = await Produit.findById(id).populate('boutiqueId', 'name_shop');
+
+    if (!produit) {
+      return res.status(404).json({ message: "Produit introuvable" });
+    }
+
     res.status(200).json(produit);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -334,5 +358,28 @@ export const deleteProduit = async (req, res) => {
       message: error.message,
     });
 
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const user = await User.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "Utilisateur non trouvé"
+      });
+    }
+
+    res.status(200).json(user);
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Erreur serveur",
+      error: error.message
+    });
   }
 };

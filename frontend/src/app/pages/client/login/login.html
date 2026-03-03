@@ -5,11 +5,13 @@
         <h3 class="text-center mb-4 fw-bold">Connexion</h3>
 
         <!-- Message erreur -->
-        <div class="alert alert-danger py-2">
-            error message
-        </div>
+        @if (errorMessage) {
+            <div class="alert alert-danger py-2">
+                {{ errorMessage }}
+            </div>
+        }
 
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
             <!-- Email -->
             <div class="mb-3">
@@ -17,9 +19,7 @@
                 <input
                     type="email"
                     class="form-control"
-                    name="email"
-                    required
-                    email
+                    formControlName="email"
                 >
             </div>
 
@@ -29,8 +29,7 @@
                 <input
                     type="password"
                     class="form-control"
-                    name="password"
-                    required
+                    formControlName="password"
                 >
             </div>
 
@@ -63,7 +62,3 @@
     </div>
 </div>
 
-
-<div class="container-fluid">
-    <router-outlet></router-outlet>
-</div>

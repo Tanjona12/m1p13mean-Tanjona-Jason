@@ -1,15 +1,9 @@
+@if (boutique) {
 <div class="container py-5">
 
     <div class="row justify-content-center mb-4">
         <div class="col-md-6">
-            <div class="input-group shadow-sm">
-                <span class="input-group-text bg-white border-end-0">
-                    <fa-icon [icon]="faSearch"></fa-icon>
-                </span>
-                <input type="text"
-                       class="form-control border-start-0"
-                       placeholder="Rechercher une boutique...">
-            </div>
+                <h2>MA BOUTIQUE</h2>
         </div>
     </div>
 
@@ -17,22 +11,22 @@
     <div class="row g-4">
 
         <div class="col-sm-6 col-md-4 col-lg-3">
-            <a href="/owner/shop/1" class="text-decoration-none text-dark">
+            <a [routerLink]="['/owner/shop', boutique._id]" class="text-decoration-none text-dark">
                 <div class="card boutique-card h-100">
                     <div class="image-container">
-                        <img src="https://img.freepik.com/vecteurs-libre/logo-elegant-pour-salon-coiffure-beaute_1048-17696.jpg?semt=ais_hybrid&w=740&q=80"
+                        <img [src]="boutique.logo?.url"
                             alt="Logo boutique">
                     </div>
                     <div class="card-body d-flex flex-column  text-center">
-                            <h5 class="card-title">Nom boutique</h5>
+                            <h5 class="card-title">{{ boutique.name_shop }}</h5>
                             <p class="card-text">
-                                - BOX 201 -
+                                - BOX {{ boutique.box }} -
                             </p>
                             <p class="card-text text-muted">
-                                Description de la boutique.
+                                {{ boutique.description || "vide" }}.
                             </p>
                             <div class="d-flex justify-content-around">
-                                <a href="/owner/update_shop" class="btn btn-outline-primary text-decoration-none" title="Supprimer cette boutique">
+                                <a [routerLink]="['/owner/update_shop', boutique._id]" class="btn btn-outline-primary text-decoration-none" title="Supprimer cette boutique">
                                       Modifier
                                 </a>
                             </div>
@@ -47,7 +41,4 @@
     </div>
 </div>
 
-
-<div class="container-fluid">
-    <router-outlet></router-outlet>
-</div>
+}

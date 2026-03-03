@@ -1,0 +1,120 @@
+<div class="container my-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card admin-form-card p-4">
+
+                <h3 class="fw-bold mb-4">Ajouter un boutique</h3>
+
+                    @if (errorMessage) {
+                    <div class="alert alert-danger">
+                        {{ errorMessage }}
+                    </div>
+                }
+
+                <form [formGroup]="boutiqueForm" (ngSubmit)="onSubmit()">
+
+                    <div class="row">
+
+                        <!-- IMAGE -->
+                        <div class="col-md-4 text-center mb-4">
+
+                            <div class="profile-image-container">
+                                <img src="https://previews.123rf.com/images/martyinktank/martyinktank2104/martyinktank210400357/167893262-your-logo-here-placeholder-symbol-vector.jpg" alt="">
+                            </div>
+
+                            <input type="file" class="form-control mt-3" (change)="onFileChange($event)">
+
+                        </div>
+
+                        <!-- INFOS -->
+                        <div class="col-md-8">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Nom de la boutique</label>
+                                <input type="text" class="form-control" formControlName="name_shop">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Déscription (optionnel)</label>
+                                <input type="text" class="form-control" formControlName="description">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Numero box </label>
+                                <input type="text" class="form-control" formControlName="box">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Propriétaire</label>
+                                <select class="form-control" formControlName="proprietaire">
+                                    <option value="">Sélectionner un propriétaire</option>
+                                    @for (owner of owners; track owner._id) {
+                                        <option [value]="owner._id">
+                                        {{ owner.name }} - {{ owner.email }}
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Téléphone</label>
+                                <input type="text" class="form-control" formControlName="phone">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Date d'ouverture</label>
+                                    <input type="text" class="form-control" formControlName="openingDays">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Heure d'ouverture</label>
+                                    <input type="time" class="form-control" formControlName="openingHour">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Heure fermeture</label>
+                                    <input type="time" class="form-control" formControlName="closingHour">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Facebook (optionnel)</label>
+                                    <input type="text" class="form-control" formControlName="facebook">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Instagram (optionnel)</label>
+                                    <input type="text" class="form-control" formControlName="instagram">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Site web (optionnel)</label>
+                                    <input type="text" class="form-control" formControlName="website">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a href="/admin/users" class="btn btn-outline-secondary">
+                            Annuler
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            Enregistrer
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

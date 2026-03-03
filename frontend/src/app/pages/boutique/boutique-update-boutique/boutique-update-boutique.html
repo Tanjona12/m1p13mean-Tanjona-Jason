@@ -1,0 +1,109 @@
+<div class="container my-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="card admin-form-card p-4">
+
+                <h3 class="fw-bold mb-4">Modifier ma boutique</h3>
+
+                    @if(errorMessage){
+                        <div class="alert alert-danger">
+                            {{ errorMessage }} 
+                        </div>
+
+                    }
+
+
+                <form [formGroup]="boutiqueForm" (ngSubmit)="onSubmit()">
+
+                    @if (boutique) {
+                    <div class="row">
+
+                        <!-- IMAGE -->
+                        <div class="col-md-4 text-center mb-4">
+
+                            <div class="profile-image-container">
+                                <img [src]="boutique.logo?.url"
+                                 alt="logo">
+                            </div>
+
+                            <input type="file" class="form-control mt-3" (change)="onFileChange($event)">
+
+                        </div>
+
+                        <!-- INFOS -->
+                        <div class="col-md-8">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Nom de la boutique</label>
+                                <input type="text" class="form-control" [value]= "boutique.name_shop" formControlName="name_shop">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Description </label>
+                                <input type="text" class="form-control" [value]= "boutique.description" formControlName="description">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Téléphone</label>
+                                <input type="text" class="form-control" [value]= "boutique.phone" formControlName="phone">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Date d'ouverture</label>
+                                    <input type="text" class="form-control" [value]= "boutique.openingDays" formControlName="openingDays">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Heure d'ouverture</label>
+                                    <input type="time" class="form-control" [value]= "boutique.openingHour" formControlName="openingHour">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Heure fermeture</label>
+                                    <input type="time" class="form-control" [value]= "boutique.closingHour" formControlName="closingHour">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Facebook </label>
+                                    <input type="text" class="form-control" [value]= "boutique.facebook" formControlName="facebook">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Instagram </label>
+                                    <input type="text" class="form-control" [value]= "boutique.instagram" formControlName="instagram">
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label fw-semibold">Site web </label>
+                                    <input type="text" class="form-control" [value]= "boutique.website" formControlName="website">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a [routerLink]="['/owner/shop', boutique._id]" class="btn btn-outline-secondary">
+                            Annuler
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            Enregistrer
+                        </button>
+                    </div>
+
+                }
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

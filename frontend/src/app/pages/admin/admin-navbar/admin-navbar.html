@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-custom px-4 sticky-top">
 
     <!-- LOGO -->
-    <a class="navbar-brand brand-logo" href="/admin">
+    <a class="navbar-brand brand-logo" [routerLink]="['/admin']">
         ADMIN BAOBAB <span>CENTER</span>
     </a>
 
@@ -14,30 +14,25 @@
         <ul class="navbar-nav ms-auto align-items-center">
 
             <li class="nav-item">
-                <a class="nav-link nav-custom" href="/admin">
+                <a class="nav-link nav-custom" [routerLink]="['/admin']">
                     <fa-icon [icon]="faHouse"></fa-icon> Accueil
                 </a>
             </li>
 
-            <li class="nav-item dropdown dropdown-hover">
-                <a class="nav-link nav-custom" href="/admin/shop">
+            <li class="nav-item">
+                <a class="nav-link nav-custom" [routerLink]="['/admin/shop']">
                     <fa-icon [icon]="faShop"></fa-icon> Boutiques
                 </a>
-
-                <ul class="dropdown-menu dropdown-modern">
-                    <li><a class="dropdown-item" href="#">Boutique 1</a></li>
-                    <li><a class="dropdown-item" href="#">Boutique 2</a></li>
-                </ul>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link nav-custom" href="/admin/users">
+                <a class="nav-link nav-custom" [routerLink]="['/admin/users']">
                      <fa-icon [icon]="faUser"></fa-icon> Utilisateur
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="btn btn-danger ms-3 px-4" href="/login">
+                <a class="btn btn-danger ms-3 px-4" (click)="logout()">
                       Déconnecter <fa-icon [icon]="faLogout"></fa-icon>
                 </a>
             </li>
@@ -50,3 +45,5 @@
 <div class="container-fluid">
     <router-outlet></router-outlet>
 </div>
+
+<app-footer></app-footer>

@@ -84,7 +84,7 @@ export const getBoutiqueUsers = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({ role: { $in: ['client', 'boutique'] } });
 
     res.status(200).json(users);
   } catch (error) {

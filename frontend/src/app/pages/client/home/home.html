@@ -33,10 +33,10 @@
             <div class="shop-scroll-wrapper">
                 <div class="shop-scroll">
 
-                    <div class="shop-card">
-                        <a href="/shop/1" class="text-dark text-decoration-none">
-                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
-                            <p>Boutique Sport</p>
+                    <div class="shop-card"  *ngFor="let boutique of filteredBoutiques">
+                        <a  [routerLink]="['/shop', boutique._id]" class="text-dark text-decoration-none">
+                            <img [src]="boutique.logo?.url"  alt="Logo boutique">
+                            <p>{{ boutique.name_shop }}</p>
                         </a>
                     </div>
 
@@ -66,22 +66,21 @@
 
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="fw-bold">Produits populaires</h4>
-                <a href="#" class="text-success">Voir plus</a>
             </div>
 
             <div class="row g-4">
 
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                    <a href="/product/1" class="text-decoration-none">
+                <div class="col-sm-6 col-md-4 col-lg-3"   *ngFor="let produit of produits">
+                    <a  [routerLink]="['/product', produit._id]" class="text-decoration-none">
                         <div class="card product-card h-100">
                             <div class="product-image-container">
-                                <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505"
-                                    alt="">
+                                <img [src]="produit.imageProduit?.url"
+                                    alt="image product">
                             </div>
 
                             <div class="card-body">
-                                <h6 class="fw-bold">Produit exemple</h6>
-                                <p class="text-success fw-semibold">25 000 Ar</p>
+                                <h6 class="fw-bold">{{ produit.name }}</h6>
+                                <p class="text-success fw-semibold">{{ formatPrice(produit.name) }}</p>
                             </div>
                         </div>
                     </a>

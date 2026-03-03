@@ -1,1 +1,65 @@
-<p>boutique-produit works!</p>
+<div class="container my-5">
+@if (produit){
+    <div class="row g-5">
+
+        <!-- ===== IMAGE PRODUIT ===== -->
+        <div class="col-md-6">
+
+            <div class="product-detail-image">
+                <img [src]="produit.imageProduit?.url"
+                     alt="Nom produit">
+            </div>
+
+        </div>
+
+
+        <!-- ===== DETAILS PRODUIT ===== -->
+        <div class="col-md-6">
+
+            <div class="product-detail-info">
+
+                <!-- Nom + Prix -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="fw-bold">{{ produit.name }}</h3>
+                </div>
+
+                <hr>
+
+                <!-- Description -->
+                <p class="mb-3">
+                    <strong>Description :</strong> {{ produit.description || 'Pas de description' }}.
+                </p>
+
+                <!-- Description -->
+                <p class="mb-3">
+                    <strong>Prix :</strong> {{ formatPrice(produit.price) }}.
+                </p>
+
+                <!-- Catégorie -->
+                <div class="mb-3">
+                    <strong>Catégorie :</strong> {{ produit.category }}
+                </div>
+
+                <div class="mb-3">
+                    <strong>Quantité :</strong> {{ produit.stock }}
+                </div>
+
+                <!-- Bouton -->
+                <a [routerLink]="['/owner/update_product', produit._id]" class="btn btn-success w-100 btn-lg">
+                    Modifier ce produit
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+}
+
+</div>
+
+
+
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>

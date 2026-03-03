@@ -7,7 +7,27 @@
 
                 <h3 class="fw-bold mb-4">Ajouter un utilisateur</h3>
 
-                <form>
+                @if (errorMessage) {
+                    <div class="alert alert-danger">
+                        {{ errorMessage }}
+                    </div>
+                }
+
+                @if (successMessage) {
+                    <div class="alert alert-success">
+                        {{ successMessage }}
+                    </div>
+                }
+
+                <!-- <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }} 
+                </div>
+
+                <div *ngIf="successMessage" class="alert alert-success">
+                {{ successMessage }}
+                </div> -->
+
+                <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
                     <div class="row">
 
@@ -15,10 +35,10 @@
                         <div class="col-md-4 text-center mb-4">
 
                             <div class="profile-image-container">
-                                <img src="https://via.placeholder.com/150" alt="">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png" alt="">
                             </div>
 
-                            <input type="file" class="form-control mt-3">
+                            <input type="file" class="form-control mt-3" (change)="onFileChange($event)">
 
                         </div>
 
@@ -27,44 +47,27 @@
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Nom complet</label>
-                                <input type="text" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Nom de la boutique</label>
-                                <input type="text" class="form-control">
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Email</label>
-                                <input type="email" class="form-control">
+                                <input type="text" class="form-control" formControlName="name">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">CIN</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" formControlName="cin">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Téléphone</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" formControlName="phone">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Email</label>
+                                <input type="email" class="form-control" formControlName="email">
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Facebook</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Instagram</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label">Site Web</label>
-                                    <input type="text" class="form-control">
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Mot de passe</label>
+                                <input type="password" class="form-control" formControlName="password">
                             </div>
 
                         </div>
@@ -87,10 +90,4 @@
         </div>
     </div>
 
-</div>
-
-
-
-<div class="container-fluid">
-    <router-outlet></router-outlet>
 </div>

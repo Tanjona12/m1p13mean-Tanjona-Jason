@@ -23,6 +23,12 @@ import { AdminUpdateUser } from './pages/admin/admin-update-user/admin-update-us
 import { BoutiqueProduit } from './pages/boutique/boutique-produit/boutique-produit';
 import { BoutiqueBoutiques } from './pages/boutique/boutique-boutiques/boutique-boutiques';
 import { BoutiqueBoutique } from './pages/boutique/boutique-boutique/boutique-boutique';
+import { BoutiqueAccueil } from './pages/boutique/boutique-accueil/boutique-accueil';
+import { AdminAddBoutique } from './pages/admin/admin-add-boutique/admin-add-boutique';
+import { BoutiqueAddProduit } from './pages/boutique/boutique-add-produit/boutique-add-produit';
+import { BoutiqueUpdateBoutique } from './pages/boutique/boutique-update-boutique/boutique-update-boutique';
+import { BoutiqueUpdateProduit } from './pages/boutique/boutique-update-produit/boutique-update-produit';
+import { BoutiqueUpdateProfile } from './pages/boutique/boutique-update-profile/boutique-update-profile';
 
 export const routes: Routes = [
     {
@@ -81,6 +87,10 @@ export const routes: Routes = [
                 component:AdminDashboard
             },
             {
+                path:'add_shop',
+                component:AdminAddBoutique
+            },
+            {
                 path:'shop',
                 component:AdminBoutiques
             },
@@ -115,6 +125,10 @@ export const routes: Routes = [
         component:BoutiqueNavbar,
         children: [
             {
+                path:'',
+                component:BoutiqueAccueil
+            },
+            {
                 path:'shop',
                 component:BoutiqueBoutiques
             },
@@ -123,11 +137,27 @@ export const routes: Routes = [
                 component:BoutiqueBoutique
             },
             {
-                path:'product',
+                path:'update_shop/:id',
+                component:BoutiqueUpdateBoutique
+            },
+            {
+                path:'add_product',
+                component:BoutiqueAddProduit
+            },
+            {
+                path:'product/:id',
                 component:BoutiqueProduit
             },
             {
-                path:'profile',
+                path:'update_product/:id',
+                component:BoutiqueUpdateProduit
+            },
+            {
+                path:'update_profil/:id',
+                component:BoutiqueUpdateProfile
+            },
+            {
+                path:'profil',
                 component:BoutiqueProfile
             }
         ]

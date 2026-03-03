@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-custom px-4 sticky-top">
 
     <!-- LOGO -->
-    <a class="navbar-brand brand-logo" href="/admin">
+    <a class="navbar-brand brand-logo" href="/owner">
         VENDEUR CHEZ BAOBAB <span>CENTER</span>
     </a>
 
@@ -19,19 +19,14 @@
                 </a>
             </li>
 
-            <li class="nav-item dropdown dropdown-hover">
+            <li class="nav-item">
                 <a class="nav-link nav-custom" href="/owner/shop">
                     <fa-icon [icon]="faShop"></fa-icon> Boutiques
                 </a>
-
-                <ul class="dropdown-menu dropdown-modern">
-                    <li><a class="dropdown-item" href="/owner/shop/1">Boutique 1</a></li>
-                    <li><a class="dropdown-item" href="#">Boutique 2</a></li>
-                </ul>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link nav-custom" href="/owner/profile">
+                <a class="nav-link nav-custom" href="/owner/profil">
                      <fa-icon [icon]="faUser"></fa-icon> Profil
                 </a>
             </li>
@@ -50,3 +45,5 @@
 <div class="container-fluid">
     <router-outlet></router-outlet>
 </div>
+
+<app-footer></app-footer>
